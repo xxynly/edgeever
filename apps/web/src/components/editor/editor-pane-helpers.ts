@@ -86,19 +86,15 @@ export const releaseEditorMedia = (editor: Editor) => {
 /**
  * Replace the document with a fresh EditorState so undo/redo cannot leak
  * across memos. Cheaper than destroying the TipTap view on every switch.
- * Release removed media after updating; unchanged image NodeViews are reused.
+ * Releases decoded images from the previous document first.
  */
 export const resetEditorDocument = (editor: Editor, content: TiptapDoc) => {
-  const root=editor.view.dom;
-  const previousMedia=Array.from(root.querySelectorAll("img, iframe, embed, object, video, audio, source, canvas"));
+  releaseEditorMedia(editor);
   editor.view.updateState(EditorState.create({
     schema: editor.schema,
     doc: editor.schema.nodeFromJSON(content),
     plugins: editor.state.plugins,
   }));
-  releaseHtmlMediaSources({
-    querySelectorAll: (selector)=>previousMedia.filter(node=>node.matches(selector) && !root.contains(node)),
-  });
 };
 
 export const CREATED_MEMO_FOCUS_MAX_ATTEMPTS = 120;

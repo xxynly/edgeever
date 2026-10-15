@@ -14,13 +14,13 @@ type State = {
 const isChineseInterface = () => navigator.language.toLowerCase().startsWith("zh");
 
 export class EditorPaneErrorBoundary extends React.Component<Props, State> {
-  override state: State = { error: null };
+  state: State = { error: null };
 
   static getDerivedStateFromError(error: unknown): State {
     return { error: error instanceof Error ? error : new Error(String(error)) };
   }
 
-  override componentDidCatch(error: Error, info: ErrorInfo) {
+  componentDidCatch(error: Error, info: ErrorInfo) {
     markRendererRecoveryRequired();
     const details = {
       kind: "react-error" as const,
@@ -32,7 +32,7 @@ export class EditorPaneErrorBoundary extends React.Component<Props, State> {
     void window.edgeeverDesktop?.recordRendererError(details).catch(() => undefined);
   }
 
-  override componentDidUpdate(previousProps: Props) {
+  componentDidUpdate(previousProps: Props) {
     if (this.state.error && previousProps.resetKey !== this.props.resetKey) {
       clearRendererRecoveryRequired();
       this.setState({ error: null });
@@ -44,7 +44,7 @@ export class EditorPaneErrorBoundary extends React.Component<Props, State> {
     this.setState({ error: null });
   };
 
-  override render() {
+  render() {
     if (!this.state.error) return this.props.children;
     const zh = isChineseInterface();
 

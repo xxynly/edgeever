@@ -1,9 +1,3 @@
-/** Plain-text fallback when the clicked selection no longer has matching DOM. */
-export const selectionTextMarkdown = (value: string) => value
-  // Entities keep Markdown, HTML and automatic links from reinterpreting literal text.
-  .replace(/[!-/:-@\[-`{-~]/g, (character) => `&#${character.charCodeAt(0)};`)
-  .replace(/^[ \t]+/gm, (indent) => indent.replace(/ /g, "&#32;").replace(/\t/g, "&#9;"));
-
 const escapeMarkdownLabel = (value: string) =>
   value.replace(/[\r\n]+/g, " ").replace(/\\/g, "\\\\").replace(/\[/g, "\\[").replace(/\]/g, "\\]");
 
@@ -23,7 +17,7 @@ export const selectionNoteMarkdown = (input: {
   sourceLabel: string;
   capturedAtLabel: string;
 }) => {
-  const body = input.markdown.replace(/\r\n/g, "\n").trim();
+  const body = input.markdown.replace(/\r\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
   const footer = [
     `${input.sourceLabel}: [${escapeMarkdownLabel(input.pageUrl)}](${markdownDestination(input.pageUrl)})`,
     `${input.capturedAtLabel}: ${input.capturedAt}`,

@@ -9,17 +9,17 @@ type Props = {
 type State = { failed: boolean };
 
 export class AiSidebarErrorBoundary extends React.Component<Props, State> {
-  override state: State = { failed: false };
+  state: State = { failed: false };
 
   static getDerivedStateFromError(): State {
     return { failed: true };
   }
 
-  override componentDidCatch(error: Error, info: ErrorInfo) {
+  componentDidCatch(error: Error, info: ErrorInfo) {
     console.error("Caught AI sidebar error", error, info.componentStack);
   }
 
-  override render() {
+  render() {
     if (!this.state.failed) return this.props.children;
     if (!this.props.open) return null;
     const zh = navigator.language.toLowerCase().startsWith("zh");

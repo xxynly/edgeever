@@ -1,6 +1,5 @@
 import {
   DeleteMemosSchema,
-  DuplicateMemoSchema,
   MemoCreateSchema,
   MergeMemosSchema,
   MemoUpdateSchema,
@@ -74,13 +73,6 @@ type MemoRouteDependencies = {
     limit: number,
   ) => Promise<MemoRevision[]>;
   listMemos: (database: DatabaseAdapter, input: ListMemosInput) => Promise<ListMemosResult>;
-  duplicateMemo: (
-    context: AppContext,
-    memoId: string,
-    input: { notebookId?: string; title?: string },
-    actor: AuditActor,
-    actorLabel: string,
-  ) => Promise<MemoDetail>;
   mergeMemos: (
     database: DatabaseAdapter,
     workspaceId: string,
@@ -412,24 +404,6 @@ export const registerMemoRoutes = (
         getAuditActor(context),
       );
       return context.json({ memo });
-    } catch (error) {
-      return handleAppError(context, error);
-    }
-  });
-
-  app.post("/api/v1/memos/:id/duplicate", zValidator("json", DuplicateMemoSchema), async (context) => {
-    const denied = requireScopes(context, "write:memos");
-    if (denied) return denied;
-
-    try {
-      const memo = await dependencies.duplicateMemo(
-        context,
-        context.req.param("id"),
-        context.req.valid("json"),
-        getAuditActor(context),
-        getActorLabel(context),
-      );
-      return context.json({ memo }, 201);
     } catch (error) {
       return handleAppError(context, error);
     }

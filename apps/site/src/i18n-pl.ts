@@ -1,5 +1,5 @@
 export const plSiteTagline =
-  "Natywna dla AI baza wiedzy oraz alternatywa dla Evernote/Obsidian z błyskawiczną synchronizacją i natywnym MCP. Bezpłatnie na Cloudflare lub self-hosted przez Docker.";
+  "Otwartoźródłowa, natywnie wspierająca AI, samodzielnie hostowana alternatywa dla Evernote – wdrożenie w Cloudflare lub Dockerze.";
 
 export const plSiteCopy = {
   layout: {

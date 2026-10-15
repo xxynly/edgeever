@@ -9,8 +9,7 @@
     "48": "icons/icon-48.png",
     "128": "icons/icon-128.png"
   },
-  "permissions": ["activeTab", "contextMenus", "scripting", "storage", "declarativeNetRequestWithHostAccess"],
-  "host_permissions": ["https://*.doubanio.com/*", "https://mmbiz.qpic.cn/*", "https://cdnfile.sspai.com/*", "https://cdn.bsky.app/*"],
+  "permissions": ["activeTab", "contextMenus", "scripting", "storage"],
   "optional_host_permissions": ["https://*/*", "http://*/*", "http://localhost/*", "http://127.0.0.1/*"],
   "action": {
     "default_title": "__MSG_actionTitle__",
@@ -75,14 +74,7 @@
         "https://threads.com/*",
         "https://www.threads.net/*",
         "https://threads.net/*",
-        "https://bsky.app/*",
-        "https://xueqiu.com/*",
-        "https://www.xueqiu.com/*",
-        "https://m.okjike.com/topics/*",
-        "https://web.okjike.com/*",
-        "https://book.douban.com/subject/*/comments*",
-        "https://movie.douban.com/subject/*/comments*",
-        "https://music.douban.com/subject/*/comments*"
+        "https://bsky.app/*"
       ],
       "js": [
         "assets/social-target.js"

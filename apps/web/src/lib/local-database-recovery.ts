@@ -9,7 +9,7 @@ class LocalDatabaseOperationTimeoutError extends Error {
 }
 
 export class LocalDatabaseUnavailableError extends Error {
-  override readonly cause: unknown;
+  readonly cause: unknown;
 
   constructor(cause: unknown) {
     super("Browser local storage is not responding");
